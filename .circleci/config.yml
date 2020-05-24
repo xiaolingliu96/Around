@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.9
+    working_directory: /go/src/github.com/xiaolingliu96/Around
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: |
+          docker build -t xiaolingliu96/around .
+          docker login -u="$DOCKERHUB_USERNAME" -p="$DOCKERHUB_PASSWORD"
+          docker push xiaolingliu96/around
+
